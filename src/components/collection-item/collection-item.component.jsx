@@ -4,7 +4,7 @@ import './collection-item.styles.scss';
 
 const CollectionItem = ({ id, name, price, imageUrl }) => {
     return (
-        <div className="collection-item">
+        <div className="collection-item" key={id}>
             <div 
                 className="image"
                 style={{
