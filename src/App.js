@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import {doc, onSnapshot} from 'firebase/firestore';
 import { connect } from 'react-redux';
 
@@ -10,7 +10,7 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import { firestore, auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.action';
+import { setCurrentUser } from './redux/user/user.actions';
 
 class App extends React.Component {
   unsubscribeFromAuth = null
@@ -46,7 +46,14 @@ class App extends React.Component {
        <Routes>
          <Route path='/' element={<HomePage />}/>
          <Route path='/shop' element={<ShopPage />}/>
-         <Route path='/signin' element={<SignInAndSignUpPage />}/>
+         <Route 
+          path='/signin' 
+          element={
+            this.props.currentUser ? 
+            <Navigate to='/' /> :
+            <SignInAndSignUpPage />
+          }
+        />
          <Route 
            path="*"
            element={
@@ -61,12 +68,16 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+})
+
 const mapDispatchToProps = dispatch => ({
   // Whatever object that is passed on "dispatch" would be an action object
   setCurrentUser: user => dispatch(setCurrentUser(user)),
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(App);
