@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from 'react-router-dom';
-import { onSnapshot, collection } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { connect } from 'react-redux'
 
 import CollectionOverview from '../../components/collection-overview/collection-overview.component';
@@ -24,11 +24,19 @@ class ShopPage extends React.Component {
     componentDidMount() {
         const { updateCollections } = this.props;
 
-        onSnapshot(collection(firestore, "collections"),async (doc) => {
+        // Promise method
+        getDocs(collection(firestore, "collections")).then(doc => {
             const collectionsMap = convertCollectionsSnapshotToMap(doc);
             updateCollections(collectionsMap);
             this.setState({ loading: false });
         })
+
+        // Observer method
+        // onSnapshot(collection(firestore, "collections"),async (doc) => {
+        //     const collectionsMap = convertCollectionsSnapshotToMap(doc);
+        //     updateCollections(collectionsMap);
+        //     this.setState({ loading: false });
+        // })
     }
 
     render() {
