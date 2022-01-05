@@ -33,9 +33,17 @@ class App extends React.Component {
           });
         })
         
-      } 
+      }
       
       setCurrentUser(userAuth);
+
+      // Only to insert the record programatically
+      // addCollectionAndDocuments(
+      //   'collections', 
+      //   collectionArray.map(
+      //     ({title, items}) => ({title, items})
+      //   )
+      // );
     })
   }
 
@@ -70,6 +78,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  // collectionArray: selectCollectionsForPreview,
 })
 
 const mapDispatchToProps = dispatch => ({
