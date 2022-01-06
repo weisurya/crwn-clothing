@@ -60,8 +60,6 @@ export const convertCollectionsSnapshotToMap = (collections) => {
         }
     })
 
-    console.log(transformedCollection);
-
     return transformedCollection.reduce(
         (accum, collection) => {
             accum[collection.title.toLowerCase()] = collection;
@@ -72,7 +70,6 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 
 }
 
-
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
     const batch = writeBatch(firestore);
 
@@ -82,4 +79,13 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     })
 
     return await batch.commit();
+}
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged(userAuth => {
+            unsubscribe();
+            resolve(userAuth);
+        }, reject)
+    })
 }
