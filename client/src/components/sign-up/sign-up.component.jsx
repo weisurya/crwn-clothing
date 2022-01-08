@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+
+import { signUpStart } from '../../redux/user/user.actions';
 
 import './sign-up.styles.scss';
 
 const SignUp = ({
     signUpStart,
 }) => {
-    const dispatch = useDispatch();
-    const signUpStartHandler = (userCredentials) => dispatch(signUpStart(userCredentials));
-
     const [ userCredentials, setUserCredentials ] = useState({
         displayName: '',
         email: '',
@@ -30,7 +29,7 @@ const SignUp = ({
             return;
         }
 
-        signUpStartHandler({ displayName, email, password})
+        signUpStart({ displayName, email, password})
     }
 
     const handleChange = event => {
@@ -88,4 +87,11 @@ const SignUp = ({
     )
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+  signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignUp);
