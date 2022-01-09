@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import './App.css';
+import { GlobalStyle } from './global.styles';
 
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -25,6 +25,7 @@ const App = () => {
   
   return (
     <div className="App">
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />

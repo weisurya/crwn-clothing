@@ -9,7 +9,11 @@ import {
   emailSignInStart
 } from '../../redux/user/user.actions';
 
-import './sign-in.styles.scss';
+import {
+    SignInContainer,
+    SignInTitle,
+    ButtonsBarContainer
+  } from './sign-in.styles';
 
 const SignIn = ({
     emailSignInStart,
@@ -38,8 +42,8 @@ const SignIn = ({
     }
 
     return (
-        <div className='sign-in'>
-            <h2>I already have an account</h2>
+        <SignInContainer>
+            <SignInTitle>I already have an account</SignInTitle>
             <span>Sign in with youe email and password</span>
 
 
@@ -64,7 +68,7 @@ const SignIn = ({
                     required 
                 />
 
-                <div className='buttons'>
+                <ButtonsBarContainer>
                     <CustomButton type='submit'> Sign in </CustomButton>
                     <CustomButton 
                         type='button'
@@ -73,9 +77,9 @@ const SignIn = ({
                     >
                         Sign in with Google
                     </CustomButton>
-                </div>
+                </ButtonsBarContainer>
             </form>
-        </div>
+        </SignInContainer>
     )
 }
 
